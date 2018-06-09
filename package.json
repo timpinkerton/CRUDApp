@@ -1,0 +1,19 @@
+{
+  "name": "zellwktutorial",
+  "version": "1.0.0",
+  "description": "Creating a CRUD app using express and mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tim Pinkerton",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.10"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}
