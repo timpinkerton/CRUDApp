@@ -5,6 +5,10 @@ const MongoClient = require('mongodb').MongoClient;
 
 app.set('view engine', 'ejs')
 
+app.use(express.static('public'))
+
+app.use(bodyParser.json())
+
 
 var db;
 
@@ -21,8 +25,6 @@ MongoClient.connect('mongodb://Tim:mLabdbuser1@ds255767.mlab.com:55767/fsjs-db1'
 app.use(bodyParser.urlencoded({
     extended: true
 }))
-
-
 
 
 app.get('/', (req, res) => {
@@ -47,3 +49,30 @@ app.post('/quotes', (req, res) => {
         res.redirect('/')
     })
 })
+
+app.put('/quotes', (req, res) => {
+    db.collection('quotes')
+        .findOneAndUpdate({
+            name: 'Yoda'
+        }, {
+            $set: {
+                name: req.body.name,
+                quote: req.body.quote
+            }
+        }, {
+            sort: {
+                _id: -1
+            },
+            upsert: true
+        }, (err, result) => {
+            if (err) return res.send(err)
+            res.send(result)
+        })
+})
+
+app.delete('/quotes', (req, res) => {
+    db.collection('quotes').findOneAndDelete({name: req.body.name}, (err, result) => {
+      if (err) return res.send(500, err)
+      res.send('A darth vadar quote got deleted')
+    })
+  })
